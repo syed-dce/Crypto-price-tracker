@@ -30,16 +30,15 @@ import {
 
 import { CoinItem } from './src/components/CoinItem';
 import cryptocurrencies from './assets/data/cryptocurrencies.json';
+import Home from './src/screens/Home';
+import CoinDetailsScreen from './src/screens/CoinDetailsScreen';
 
 const App: () => Node = () => {
 
   return (
     <SafeAreaView >
-        <View style={styles.container}> 
-            <FlatList data={cryptocurrencies} 
-                      renderItem={({item}) => <CoinItem  coinData={item} />}
-            />
-        </View>
+        {/* <Home /> */}
+        <CoinDetailsScreen />
     </SafeAreaView>
   );
 };
