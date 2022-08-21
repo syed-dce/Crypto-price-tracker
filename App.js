@@ -37,14 +37,16 @@ const App: () => Node = () => {
 
   return (
     <SafeAreaView >
+      <View style={styles.appContainer}>
         {/* <Home /> */}
         <CoinDetailsScreen />
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  appContainer: {
     // backgroundColor: 'dimgray',
     backgroundColor: '#3f3f3f',
     height: '100%',
