@@ -88,7 +88,9 @@ import CoinInfo from '../../../assets/data/crypto.json';
     // backgroundColor: '#585858',
     backgroundColor: 'black',
     paddingHorizontal: 6,
-    borderRadius: 4
+    borderRadius: 4,
+    padding: 5,
+    paddingHorizontal: 8
    }
  });
  

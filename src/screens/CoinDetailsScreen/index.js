@@ -99,7 +99,7 @@ import CoinDetailsHeader from '../../components/CoinDetailsHeader/CoinDetailsHea
         justifyContent: 'space-between',
         alignItems: 'center'
     }
-
+ 
  });
  
  export default CoinDetailsScreen;
