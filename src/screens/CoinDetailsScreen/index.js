@@ -7,7 +7,7 @@
  */
 
  import React from 'react';
- import type {Node} from 'react';
+ // import type {Node} from 'react';
  import {
    SafeAreaView,
    ScrollView,
@@ -17,7 +17,8 @@
    useColorScheme,
    View,
    Image,
-   FlatList
+   FlatList,
+   Dimensions
  } from 'react-native';
  
  import {
@@ -34,12 +35,18 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CoinInfo from '../../../assets/data/crypto.json';
 import CoinDetailsHeader from '../../components/CoinDetailsHeader/CoinDetailsHeader';
 
- const CoinDetailsScreen: () => Node = () => {
+import {ChartDot, ChartPath, ChartPathProvider, monotoneCubicInterpolation} 
+            from '@rainbow-me/animated-charts';
+
+export const {width: SIZE} = Dimensions.get('window');
+
+ const CoinDetailsScreen = () => {
 
 
     const { image: { small }, 
             name, 
             symbol,
+            prices,
             market_data: {market_cap_rank, current_price, price_change_percentage_24h},
         } = CoinInfo;
  
@@ -51,6 +58,7 @@ import CoinDetailsHeader from '../../components/CoinDetailsHeader/CoinDetailsHea
    return (
 
         <>
+        {/* <ChartPathProvider data={{ points, smoothingStrategy: 'bezier' }}> */}
             <CoinDetailsHeader 
                                 image={small} 
                                 name={name}  
@@ -68,6 +76,15 @@ import CoinDetailsHeader from '../../components/CoinDetailsHeader/CoinDetailsHea
                     <Text style={styles.priceChange}>{price_change_percentage_24h.toFixed(5)}%</Text>
                 </View>
             </View>
+
+
+            <ChartPathProvider data={{ points: prices.map((price) => ({x: price[0], y: price[1]}) ), 
+                
+                                    smoothingStrategy: 'bezier' }}>
+                <ChartPath height={SIZE / 2} stroke="yellow" width={SIZE} />
+                <ChartDot style={{ backgroundColor: 'red' }} />
+            </ChartPathProvider>
+
         </>
 
    );
