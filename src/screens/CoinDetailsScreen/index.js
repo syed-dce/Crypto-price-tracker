@@ -35,7 +35,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CoinInfo from '../../../assets/data/crypto.json';
 import CoinDetailsHeader from '../../components/CoinDetailsHeader/CoinDetailsHeader';
 
-import {ChartDot, ChartPath, ChartPathProvider, monotoneCubicInterpolation} 
+import {ChartDot, ChartPath, ChartPathProvider, ChartYLabel, monotoneCubicInterpolation} 
             from '@rainbow-me/animated-charts';
 
 export const {width: SIZE} = Dimensions.get('window');
@@ -55,10 +55,20 @@ export const {width: SIZE} = Dimensions.get('window');
     const caretSymbol = price_change_percentage_24h < 0 ? 'caret-down' : 'caret-up';
     
 
+    const formatCurrency = (value) => {
+        "worklet";
+
+        if (value === "" ) {
+            return `${current_price.usd.toFixed(2).toString()}`
+        }
+
+        return `${parseFloat(value).toFixed(2).toString()}`
+    }
+
    return (
 
-        <>
-        {/* <ChartPathProvider data={{ points, smoothingStrategy: 'bezier' }}> */}
+        <View>
+        <ChartPathProvider data={{ points: prices.map((price) => ({x: price[0], y: price[1]}) ), smoothingStrategy: 'bezier' }}>
             <CoinDetailsHeader 
                                 image={small} 
                                 name={name}  
@@ -69,7 +79,11 @@ export const {width: SIZE} = Dimensions.get('window');
             <View style={styles.subHeaderContainer}>
                 <View>
                     <Text style={styles.name}>{name}</Text>
-                    <Text style={styles.currentPrice}>${current_price.usd}</Text>
+                    <ChartYLabel 
+                        format={formatCurrency}
+                        style={styles.currentPrice}
+                    />
+                    
                 </View>
                 <View style={styles.priceChangeContainer}>
                 <Icon name={caretSymbol} size={20} color='white' style={{alignSelf: 'center', marginRight: 7}} />
@@ -78,14 +92,14 @@ export const {width: SIZE} = Dimensions.get('window');
             </View>
 
 
-            <ChartPathProvider data={{ points: prices.map((price) => ({x: price[0], y: price[1]}) ), 
-                
-                                    smoothingStrategy: 'bezier' }}>
+            {/* <ChartPathProvider data={{ points: prices.map((price) => ({x: price[0], y: price[1]}) ), smoothingStrategy: 'bezier' }}> */}
+                {/* <View> */}
                 <ChartPath height={SIZE / 2} stroke="yellow" width={SIZE} />
                 <ChartDot style={{ backgroundColor: 'red' }} />
+                {/* </View> */}
             </ChartPathProvider>
 
-        </>
+        </View>
 
    );
  };
