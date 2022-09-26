@@ -93,10 +93,10 @@ export const {width: SIZE} = Dimensions.get('window');
 
 
             {/* <ChartPathProvider data={{ points: prices.map((price) => ({x: price[0], y: price[1]}) ), smoothingStrategy: 'bezier' }}> */}
-                {/* <View> */}
+                <View>
                 <ChartPath height={SIZE / 2} stroke="yellow" width={SIZE} />
                 <ChartDot style={{ backgroundColor: 'red' }} />
-                {/* </View> */}
+                </View>
             </ChartPathProvider>
 
         </View>
